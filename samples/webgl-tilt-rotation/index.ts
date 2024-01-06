@@ -4,15 +4,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+const trianglePoints =  [
+  { lat: 35.6933129, lng: 139.7006083},
+  { lat: 35.6933675, lng:139.7000022},
+  { lat: 35.6927859, lng:139.7002795},
+  { lat: 35.6933129, lng: 139.7006083}
+]
+
+
 // [START maps_webgl_tilt_rotation]
 function initMap(): void {
   const map = new google.maps.Map(
     document.getElementById("map") as HTMLElement,
     {
-      center: {
+      /*center: {
         lat: 37.7893719,
         lng: -122.3942,
-      },
+      },*/
+      center: { lat: 35.6933129, lng: 139.7006083 },
       zoom: 16,
       heading: 320,
       tilt: 47.5,
@@ -52,6 +61,17 @@ function initMap(): void {
         break;
     }
   };
+
+  new google.maps.Polygon({
+    map,
+    paths: trianglePoints,
+    strokeColor: "#FF0000",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#FF0000",
+    fillOpacity: 0.35,
+    geodesic: true,
+  })
 }
 
 declare global {

@@ -19,11 +19,19 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 let map: google.maps.Map;
 
+const trianglePoints =  [
+  { lat: 35.6933129, lng: 139.7006083},
+  { lat: 35.6933675, lng:139.7000022},
+  { lat: 35.6927859, lng:139.7002795},
+  { lat: 35.6933129, lng: 139.7006083}
+]
+
 const mapOptions = {
   tilt: 0,
   heading: 0,
   zoom: 18,
-  center: { lat: 35.6594945, lng: 139.6999859 },
+  //center: { lat: 35.6594945, lng: 139.6999859 },
+  center: { lat: 35.6933129, lng: 139.7006083 },
   mapId: "15431d2b469f209e",
   // disable interactions due to animation loop and moveCamera
   disableDefaultUI: true,
@@ -34,6 +42,18 @@ const mapOptions = {
 function initMap(): void {
   const mapDiv = document.getElementById("map") as HTMLElement;
   map = new google.maps.Map(mapDiv, mapOptions);
+
+  new google.maps.Polygon({
+    map,
+    paths: trianglePoints,
+    strokeColor: "#FF0000",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#FF0000",
+    fillOpacity: 0.35,
+    geodesic: true,
+  })
+
   initWebglOverlayView(map);
 }
 // [END maps_webgl_overlay_simple_init_map]
