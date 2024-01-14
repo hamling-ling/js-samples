@@ -13,6 +13,9 @@ import {
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
+  BoxGeometry,
+  Mesh,
+  MeshBasicMaterial
 } from "three";
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -76,6 +79,19 @@ function initWebglOverlayView(map: google.maps.Map): void {
     const directionalLight = new DirectionalLight(0xffffff, 0.25);
     directionalLight.position.set(0.5, -1, 0.5);
     scene.add(directionalLight);
+
+    // draw cube
+    // If we want LatLong position, we may use helper functions described
+    // here: https://github.com/googlemaps/js-three
+    const geometry = new BoxGeometry( 100, 100, 100 ); 
+    const material = new MeshBasicMaterial( {
+                                              color: 0x00ff00,
+                                              opacity: 0.1,
+                                              transparent: true
+                                            } ); 
+    const cube = new Mesh( geometry, material ); 
+
+    scene.add( cube );
 
     // Load the model.
     loader = new GLTFLoader();
